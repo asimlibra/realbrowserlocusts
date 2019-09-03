@@ -75,6 +75,23 @@ class HeadlessChromeLocust(RealBrowserLocust):
             set_window=False
         )
 
+class HeadlessFirefoxLocust(RealBrowserLocust):
+    """
+    Provides a headless Chrome webdriver that logs GET's and waits to locust
+    """
+    def __init__(self):
+        super(HeadlessFirefoxLocust, self).__init__()
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--headless')
+        driver = webdriver.Firefox(options=options)
+        _LOGGER.info('Actually trying to run headless Firefox')
+        self.client = RealBrowserClient(
+            driver,
+            self.timeout,
+            self.screen_width,
+            self.screen_height,
+            set_window=False
+        )
 
 class FirefoxLocust(RealBrowserLocust):
     """
